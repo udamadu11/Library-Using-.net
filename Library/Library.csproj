@@ -1694,6 +1694,7 @@
     <Content Include="img\team.png" />
     <Content Include="img\unauthorized-person.png" />
     <Content Include="userLogin.aspx" />
+    <Content Include="userProfile.aspx" />
     <Content Include="userSignUp.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
@@ -1721,6 +1722,13 @@
     </Compile>
     <Compile Include="userLogin.aspx.designer.cs">
       <DependentUpon>userLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="userProfile.aspx.cs">
+      <DependentUpon>userProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userProfile.aspx.designer.cs">
+      <DependentUpon>userProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="userSignUp.aspx.cs">
       <DependentUpon>userSignUp.aspx</DependentUpon>
