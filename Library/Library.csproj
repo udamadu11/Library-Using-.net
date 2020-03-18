@@ -70,6 +70,7 @@
     <Content Include="adminAuthorManagement.aspx" />
     <Content Include="adminBookIssuing.aspx" />
     <Content Include="adminLogin.aspx" />
+    <Content Include="adminMemberManagement.aspx" />
     <Content Include="adminPublisherManagement.aspx" />
     <Content Include="bootstrap\css\bootstrap-grid.css" />
     <Content Include="bootstrap\css\bootstrap-grid.min.css" />
@@ -1728,6 +1729,13 @@
     </Compile>
     <Compile Include="adminLogin.aspx.designer.cs">
       <DependentUpon>adminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adminMemberManagement.aspx.cs">
+      <DependentUpon>adminMemberManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adminMemberManagement.aspx.designer.cs">
+      <DependentUpon>adminMemberManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="adminPublisherManagement.aspx.cs">
       <DependentUpon>adminPublisherManagement.aspx</DependentUpon>
