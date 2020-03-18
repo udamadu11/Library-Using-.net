@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="adminAuthorManagement.aspx" />
+    <Content Include="adminBookIssuing.aspx" />
     <Content Include="adminLogin.aspx" />
     <Content Include="adminPublisherManagement.aspx" />
     <Content Include="bootstrap\css\bootstrap-grid.css" />
@@ -1713,6 +1714,13 @@
     </Compile>
     <Compile Include="adminAuthorManagement.aspx.designer.cs">
       <DependentUpon>adminAuthorManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adminBookIssuing.aspx.cs">
+      <DependentUpon>adminBookIssuing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adminBookIssuing.aspx.designer.cs">
+      <DependentUpon>adminBookIssuing.aspx</DependentUpon>
     </Compile>
     <Compile Include="adminLogin.aspx.cs">
       <DependentUpon>adminLogin.aspx</DependentUpon>
