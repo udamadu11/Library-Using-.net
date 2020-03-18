@@ -1686,6 +1686,7 @@
     <Content Include="img\bookshelf.png" />
     <Content Include="img\bookstore.png" />
     <Content Include="img\businessman.png" />
+    <Content Include="img\essay.png" />
     <Content Include="img\online-library %281%29.png" />
     <Content Include="img\online-library.png" />
     <Content Include="img\silence.png" />
