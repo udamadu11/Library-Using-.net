@@ -67,7 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="adminAuthorManagement.aspx" />
     <Content Include="adminLogin.aspx" />
+    <Content Include="adminPublisherManagement.aspx" />
     <Content Include="bootstrap\css\bootstrap-grid.css" />
     <Content Include="bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="bootstrap\css\bootstrap-reboot.css" />
@@ -1679,13 +1681,17 @@
     <Content Include="fontawesom\webfonts\fa-solid-900.svg" />
     <Content Include="img\1.jpg" />
     <Content Include="img\2.jpg" />
+    <Content Include="img\4.png" />
     <Content Include="img\admin.png" />
+    <Content Include="img\author.png" />
+    <Content Include="img\authorization.png" />
     <Content Include="img\book %281%29.png" />
     <Content Include="img\book %282%29.png" />
     <Content Include="img\book.png" />
     <Content Include="img\bookshelf.png" />
     <Content Include="img\bookstore.png" />
     <Content Include="img\businessman.png" />
+    <Content Include="img\content.png" />
     <Content Include="img\essay.png" />
     <Content Include="img\online-library %281%29.png" />
     <Content Include="img\online-library.png" />
@@ -1701,12 +1707,26 @@
     <Content Include="WebForm2.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adminAuthorManagement.aspx.cs">
+      <DependentUpon>adminAuthorManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adminAuthorManagement.aspx.designer.cs">
+      <DependentUpon>adminAuthorManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="adminLogin.aspx.cs">
       <DependentUpon>adminLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="adminLogin.aspx.designer.cs">
       <DependentUpon>adminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="adminPublisherManagement.aspx.cs">
+      <DependentUpon>adminPublisherManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="adminPublisherManagement.aspx.designer.cs">
+      <DependentUpon>adminPublisherManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site1.Master.cs">
