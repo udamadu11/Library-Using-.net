@@ -114,5 +114,27 @@ namespace Library
         {
 
         }
+
+        protected void LinkButton11_Click(object sender, EventArgs e)
+        {
+            Session["username"] = "";
+            Session["fullname"] = "";
+            Session["role"] = "";
+            Session["status"] = "";
+
+            LinkButton7.Visible = false; // view book
+            LinkButton8.Visible = true; // user login
+            LinkButton9.Visible = true; // user sign up
+            LinkButton10.Visible = false; // hello user
+            LinkButton11.Visible = false; //  logout
+
+            LinkButton1.Visible = true; // admin login
+            LinkButton2.Visible = false; //  author management
+            LinkButton3.Visible = false; // hello user
+            LinkButton4.Visible = false; //  publisher management
+            LinkButton5.Visible = false; // book inventory
+            LinkButton6.Visible = false; //  member management
+
+        }
     }
 }
