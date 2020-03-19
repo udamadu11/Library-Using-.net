@@ -104,7 +104,7 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <asp:Button ID="Button1" runat="server" Text="Sign Up" CssClass="btn btn-success btn-block" />
+                                    <asp:Button ID="Button1" runat="server" Text="Sign Up" CssClass="btn btn-success btn-block" OnClick="Button1_Click" />
                                    
                                  </div>
                             </div>
