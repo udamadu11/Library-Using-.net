@@ -49,18 +49,18 @@
                              <div class="row" style="margin-top:15px;">
                                 <div class="col-md-4">
                                    <div class="form-group">
-                                        <asp:Button ID="Button1" runat="server" Text="Add" CssClass="btn btn-info btn-lg btn-block"/>
+                                        <asp:Button ID="Button1" runat="server" Text="Add" CssClass="btn btn-info btn-lg btn-block" OnClick="Button1_Click"/>
                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                       <div class="form-group">
-                                        <asp:Button ID="Button2" runat="server" Text="Update" CssClass="btn btn-success btn-lg btn-block"/>
+                                        <asp:Button ID="Button2" runat="server" Text="Update" CssClass="btn btn-success btn-lg btn-block" OnClick="Button2_Click"/>
 
                                       </div>
                                 </div>
                                  <div class="col-md-4">
                                       <div class="form-group">
-                                        <asp:Button ID="Button3" runat="server" Text="Delete" CssClass="btn btn-danger btn-lg btn-block"/>
+                                        <asp:Button ID="Button3" runat="server" Text="Delete" CssClass="btn btn-danger btn-lg btn-block" OnClick="Button3_Click"/>
                                       </div>
                                 </div>
                             </div>
