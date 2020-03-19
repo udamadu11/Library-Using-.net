@@ -34,8 +34,13 @@ namespace Library
                 {
                     while (dr.Read())
                     {
-                        Response.Write("<script>alert('" + dr.GetValue(0).ToString() + "');</script>");
+                        Response.Write("<script>alert('Login Successfully');</script>");
+                        Session["username"] = dr.GetValue(0).ToString();
+                        Session["fullname"] = dr.GetValue(2).ToString();
+                        Session["role"] = "admin";
+                       
                     }
+                    Response.Redirect("WebForm2.aspx");
                 }
                 else
                 {
