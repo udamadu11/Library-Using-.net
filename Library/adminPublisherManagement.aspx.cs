@@ -46,7 +46,14 @@ namespace Library
         //delete
         protected void Button3_Click(object sender, EventArgs e)
         {
-
+            if (checkExit())
+            {
+                deletePublish();
+            }
+            else
+            {
+                Response.Write("<script>alert('Publish Id does not Exist !')</script>");
+            }
         }
         //user define
         bool checkExit()
@@ -114,6 +121,27 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Updated')</script>");
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
+        void deletePublish()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strCon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("DELETE FROM publish_master WHERE publish_id = '" + TextBox1.Text.Trim() + "' ", con);
+                cmd.Parameters.AddWithValue("@publish_name", TextBox2.Text.Trim());
+                cmd.ExecuteNonQuery();
+                con.Close();
+                Response.Write("<script>alert('Successfully Deleted')</script>");
 
             }
             catch (Exception ex)
