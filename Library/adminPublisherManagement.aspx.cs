@@ -15,7 +15,7 @@ namespace Library
         string strCon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            GridView1.DataBind();
         }
 
         //add 
@@ -54,7 +54,14 @@ namespace Library
             {
                 Response.Write("<script>alert('Publish Id does not Exist !')</script>");
             }
+        
         }
+        //go button
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            gobutton();
+        }
+
         //user define
         bool checkExit()
         {
@@ -100,6 +107,8 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Added')</script>");
+                clearForm();
+                GridView1.DataBind();
 
             }
             catch (Exception ex)
@@ -121,6 +130,8 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Updated')</script>");
+                clearForm();
+                GridView1.DataBind();
 
             }
             catch (Exception ex)
@@ -142,6 +153,42 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Deleted')</script>");
+                clearForm();
+                GridView1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
+
+        void clearForm()
+        {
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+        }
+
+        void gobutton()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strCon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("SELECT * FROM publish_master WHERE publish_id = '" + TextBox1.Text.Trim() + "' ", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count >= 1)
+                {
+                    TextBox2.Text = dt.Rows[0][1].ToString();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Invalid Publish Id')</script>");
+                }
 
             }
             catch (Exception ex)
@@ -149,5 +196,7 @@ namespace Library
                 Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
         }
+
+
     }
 }
