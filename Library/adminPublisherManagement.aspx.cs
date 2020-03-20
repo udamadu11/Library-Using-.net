@@ -34,7 +34,14 @@ namespace Library
         //update
         protected void Button2_Click(object sender, EventArgs e)
         {
-
+            if (checkExit())
+            {
+                updatePublish();
+            }
+            else
+            {
+                Response.Write("<script>alert('Publish Id does not Exist !')</script>");
+            }
         }
         //delete
         protected void Button3_Click(object sender, EventArgs e)
@@ -86,6 +93,27 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Added')</script>");
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
+        void updatePublish()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strCon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("UPDATE publish_master SET publish_name = @publish_name WHERE publish_id = '"+TextBox1.Text.Trim()+"' ", con);
+                cmd.Parameters.AddWithValue("@publish_name", TextBox2.Text.Trim());
+                cmd.ExecuteNonQuery();
+                con.Close();
+                Response.Write("<script>alert('Successfully Updated')</script>");
 
             }
             catch (Exception ex)
