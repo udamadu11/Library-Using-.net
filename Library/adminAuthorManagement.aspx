@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="adminAuthorManagement.aspx.cs" Inherits="Library.adminAuthorManagement" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable();
+        } );
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container" style="margin-top:10px;margin-bottom:10px;">
@@ -34,7 +39,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Author Id"></asp:TextBox>
-                                                <asp:Button ID="Button4" runat="server" Text="Go" class="btn btn-dark"/>
+                                                <asp:Button ID="Button4" runat="server" Text="Go" class="btn btn-dark" OnClick="Button4_Click"/>
                                             </div>
                                         </div>
                                     </div>
@@ -91,8 +96,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <asp:GridView ID="GridView1" runat="server" class="table table-striped table-bordered table-hover"></asp:GridView>
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:eLibConnectionString %>" SelectCommand="SELECT * FROM [author_master]"></asp:SqlDataSource>
+                             <div class="col">
+                                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="author_id" DataSourceID="SqlDataSource1" CssClass="table table-bordered">
+                                    <Columns>
+                                        <asp:BoundField DataField="author_id" HeaderText="author_id" ReadOnly="True" SortExpression="author_id" />
+                                        <asp:BoundField DataField="author_name" HeaderText="author_name" SortExpression="author_name" />
+                                    </Columns>
+                                  
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>

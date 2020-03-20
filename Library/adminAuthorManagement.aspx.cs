@@ -15,7 +15,7 @@ namespace Library
         string strCon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            GridView1.DataBind();
         }
 
         //add
@@ -57,6 +57,11 @@ namespace Library
             {
                 Response.Write("<script>alert('Author Does not Exist !')</script>");
             }
+        }
+        //go button
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            goButton();
         }
 
         //user difined  function
@@ -104,6 +109,7 @@ namespace Library
                 con.Close();
                 Response.Write("<script>alert('Successfully Added')</script>");
                 clearForm();
+                GridView1.DataBind();
             }
             catch (Exception ex)
             {
@@ -128,7 +134,7 @@ namespace Library
                 con.Close();
                 Response.Write("<script>alert('Update successfully !')</script>");
                 clearForm();
-
+                GridView1.DataBind();
             }
             catch(Exception ex)
             {
@@ -150,6 +156,7 @@ namespace Library
                 con.Close();
                 Response.Write("<script>alert('Delete successfully !')</script>");
                 clearForm();
+                GridView1.DataBind();
             }
             catch(Exception ex)
             {
@@ -161,6 +168,33 @@ namespace Library
             TextBox1.Text = "";
             TextBox2.Text = "";
         }
-        
+
+        void goButton()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strCon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("SELECT * FROM author_master WHERE author_id = '" + TextBox1.Text.Trim() + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count >= 1)
+                {
+                    TextBox2.Text = dt.Rows[0][1].ToString();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Invalid Author Id')</script>");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
     }
 }
