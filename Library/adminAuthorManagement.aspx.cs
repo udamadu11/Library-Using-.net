@@ -85,9 +85,39 @@ namespace Library
         }
 
         //update
+
+            void updateAuthor()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strCon);
+                if(con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("UPDATE author_master SET author_name = @author_name WHERE author_id = '"+TextBox1.Text.Trim()+"' ", con);
+                cmd.Parameters.AddWithValue("@author_name",TextBox2.Text.Trim());
+                cmd.ExecuteNonQuery();
+                con.Close();
+                Response.Write("<script>alert('Update successfully !')</script>");
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
         protected void Button2_Click(object sender, EventArgs e)
         {
-
+            if (checkAuthorExist())
+            {
+                updateAuthor();
+            }
+            else
+            {
+                Response.Write("<script>alert('Author does not Exist !')</script>");
+            }
         }
 
         //delete
