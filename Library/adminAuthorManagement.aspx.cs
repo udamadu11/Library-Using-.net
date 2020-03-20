@@ -33,7 +33,33 @@ namespace Library
 
             
         }
+        //update
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            if (checkAuthorExist())
+            {
+                updateAuthor();
+            }
+            else
+            {
+                Response.Write("<script>alert('Author does not Exist !')</script>");
+            }
+        }
 
+        //delete
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            if (checkAuthorExist())
+            {
+                authorDelete();
+            }
+            else
+            {
+                Response.Write("<script>alert('Author Does not Exist !')</script>");
+            }
+        }
+
+        //user difined  function
         bool checkAuthorExist()
         {
             try
@@ -77,6 +103,7 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Successfully Added')</script>");
+                clearForm();
             }
             catch (Exception ex)
             {
@@ -84,7 +111,7 @@ namespace Library
             }
         }
 
-        //update
+        
 
             void updateAuthor()
         {
@@ -100,30 +127,40 @@ namespace Library
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Write("<script>alert('Update successfully !')</script>");
+                clearForm();
 
             }
             catch(Exception ex)
             {
-
+                Response.Write("<script>alert('"+ex.Message+"')</script>");
             }
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        void authorDelete()
         {
-            if (checkAuthorExist())
+            try
             {
-                updateAuthor();
+                SqlConnection con = new SqlConnection(strCon);
+                if(con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("DELETE FROM author_master WHERE author_id = '"+TextBox1.Text.Trim()+"'",con);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                Response.Write("<script>alert('Delete successfully !')</script>");
+                clearForm();
             }
-            else
+            catch(Exception ex)
             {
-                Response.Write("<script>alert('Author does not Exist !')</script>");
+                Response.Write("<script>alert('"+ex.Message+"')</script>");
             }
         }
-
-        //delete
-        protected void Button3_Click(object sender, EventArgs e)
+        void clearForm()
         {
-
+            TextBox1.Text = "";
+            TextBox2.Text = "";
         }
+        
     }
 }
