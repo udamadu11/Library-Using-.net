@@ -23,7 +23,7 @@ namespace Library
         //go button
         protected void Button3_Click(object sender, EventArgs e)
         {
-
+            getId();
         }
 
         //add button
@@ -163,6 +163,57 @@ namespace Library
 
             }
             catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
+
+        //get information by id
+        void getId()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(striCon);
+                if(con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("SELECT * FROM book_master WHERE book_d = '"+TextBox2.Text.Trim()+"'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if(dt.Rows.Count >= 1)
+                {
+                    TextBox7.Text = dt.Rows[0]["book_name"].ToString();
+                    TextBox1.Text = dt.Rows[0]["publish_date"].ToString();
+                    TextBox9.Text = dt.Rows[0]["edition"].ToString();
+                    TextBox10.Text = dt.Rows[0]["book_cost"].ToString().Trim();
+                    TextBox11.Text = dt.Rows[0]["no_pages"].ToString().Trim();
+                    TextBox3.Text = dt.Rows[0]["actual_stock"].ToString().Trim();
+                    TextBox4.Text = dt.Rows[0]["current_stock"].ToString().Trim();
+                    TextBox12.Text = dt.Rows[0]["book_description"].ToString().Trim();
+                    DropDownList1.SelectedValue = dt.Rows[0]["language"].ToString().Trim();
+                    DropDownList2.SelectedValue = dt.Rows[0]["publisher_name"].ToString().Trim();
+                    DropDownList3.SelectedValue = dt.Rows[0]["author_name"].ToString().Trim();
+
+                    ListBox1.ClearSelection();
+                    string[] genre = dt.Rows[0]["genre"].ToString().Trim().Split(',');
+                    for(int i = 0; i < genre.Length ; i++)
+                    {
+                        for (int j = 0; j < ListBox1.Items.Count ; j++)
+                        {
+                            if (ListBox1.Items[j].ToString() == genre[i])
+                            {
+                                ListBox1.Items[j].Selected = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Invalid Book Id')</script>");
+                }
+            }catch(Exception ex)
             {
                 Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
