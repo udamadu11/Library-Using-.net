@@ -196,6 +196,10 @@ namespace Library
                     DropDownList2.SelectedValue = dt.Rows[0]["publisher_name"].ToString().Trim();
                     DropDownList3.SelectedValue = dt.Rows[0]["author_name"].ToString().Trim();
 
+                    TextBox5.Text = "" + (Convert.ToInt32(TextBox3.Text) - Convert.ToInt32(TextBox4.Text));
+                        
+                        //Convert((dt.Rows[0]["actual_cost"].ToString()) - (dt.Rows[0]["currebt_cost"].ToString()));
+
                     ListBox1.ClearSelection();
                     string[] genre = dt.Rows[0]["genre"].ToString().Trim().Split(',');
                     for(int i = 0; i < genre.Length ; i++)
@@ -208,6 +212,8 @@ namespace Library
                             }
                         }
                     }
+
+                    
                 }
                 else
                 {
