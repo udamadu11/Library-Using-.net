@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -57,7 +58,7 @@ namespace Library
             try
             {
                 SqlConnection con = new SqlConnection(striCon);
-                if (con.State == System.Data.ConnectionState.Closed)
+                if (con.State == ConnectionState.Closed)
                 {
                     con.Open();
                 }
@@ -93,7 +94,7 @@ namespace Library
                 {
                     con.Close();
                 }
-                SqlCommand cmd = new SqlCommand("SELECT * FROM book_master WHERE book_id = '"+TextBox2.Text.Trim()+"'", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM book_master WHERE book_d = '"+TextBox2.Text.Trim()+"'", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -119,26 +120,41 @@ namespace Library
         {
             try
             {
+                //image upload
+                string filepath = "~/book Inventory/book.png";
+                string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                FileUpload1.SaveAs(Server.MapPath("book inventory/" + filename));
+                filepath = "~/book Inventory/book.png" + filename;
+
+                //select multiple genre
+                string genre = "";
+                foreach (int i in  ListBox1.GetSelectedIndices())
+                {
+                    genre = genre + ListBox1.Items[i] + ",";
+                }
+                genre = genre.Remove(genre.Length-1);
+
+
                 SqlConnection con = new SqlConnection(striCon);
                 if (con.State == ConnectionState.Closed)
                 {
                     con.Open();
                 }
                 SqlCommand cmd = new SqlCommand("INSERT INTO book_master(book_d,book_name,genre,author_name,publisher_name,publish_date,language,edition,book_cost,no_pages,book_description,actual_stock,current_stock,book_img_link) VALUES(@book_d,@book_name,@genre,@author_name,@publisher_name,@publish_date,@language,@edition,@book_cost,@no_pages,@book_description,@actual_stock,@current_stock,@book_img_link)", con);
-                cmd.Parameters.AddWithValue("@book_d", TextBox1.Text.Trim());
-                cmd.Parameters.AddWithValue("@book_name", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@genre", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@author_name", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@publisher_name", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@publish_date", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@language", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@edition", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@book_cost", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@no_pages", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@book_description", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@actual_stock", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@current_stock", TextBox2.Text.Trim());
-                cmd.Parameters.AddWithValue("@book_img_link", TextBox2.Text.Trim());
+                cmd.Parameters.AddWithValue("@book_d", TextBox2.Text.Trim());
+                cmd.Parameters.AddWithValue("@book_name", TextBox7.Text.Trim());
+                cmd.Parameters.AddWithValue("@genre",genre);
+                cmd.Parameters.AddWithValue("@author_name", DropDownList3.SelectedItem.Value);
+                cmd.Parameters.AddWithValue("@publisher_name", DropDownList2.SelectedItem.Value);
+                cmd.Parameters.AddWithValue("@publish_date", TextBox1.Text.Trim());
+                cmd.Parameters.AddWithValue("@language", DropDownList1.SelectedItem.Value);
+                cmd.Parameters.AddWithValue("@edition", TextBox9.Text.Trim());
+                cmd.Parameters.AddWithValue("@book_cost", TextBox10.Text.Trim());
+                cmd.Parameters.AddWithValue("@no_pages", TextBox11.Text.Trim());
+                cmd.Parameters.AddWithValue("@book_description", TextBox12.Text.Trim());
+                cmd.Parameters.AddWithValue("@actual_stock", TextBox3.Text.Trim());
+                cmd.Parameters.AddWithValue("@current_stock", TextBox3.Text.Trim());
+                cmd.Parameters.AddWithValue("@book_img_link", filepath);
 
                 cmd.ExecuteNonQuery();
                 con.Close();

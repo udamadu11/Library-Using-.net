@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label>Genre</label>
-                                    <asp:ListBox ID="ListBox1" runat="server" CssClass="form-control" Rows="5">
+                                    <asp:ListBox ID="ListBox1" runat="server" CssClass="form-control" Rows="5" SelectionMode="Multiple">
                                             <asp:ListItem Text="A1" Value="A1" />
                                             <asp:ListItem Text="A2" Value="A2" />
                                             <asp:ListItem Text="A3" Value="A3" />
