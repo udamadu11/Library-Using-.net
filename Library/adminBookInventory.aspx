@@ -1,5 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="adminBookInventory.aspx.cs" Inherits="Library.adminBookInventory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
@@ -18,7 +32,7 @@
                         <div class="row">
                             <div class="col">
                                 <center>
-                                    <img src="img/book.png" width="100" height="80" />
+                                    <img width="100" height="80" id="image" src="book Inventory/book.png" />
                                 </center>
                             </div>
                         </div>
@@ -30,7 +44,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <asp:FileUpload ID="FileUpload1" runat="server" çlass="form-control"/>
+                                <asp:FileUpload ID="FileUpload1" runat="server" OnChange="readURL(this);" çlass="form-control"/>
                             </div>
                         </div>
                         <div class="row">
@@ -39,7 +53,7 @@
                                        <div class="form-group">
                                                 <div class="input-group">
                                                     <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" placeholder="Book Id"></asp:TextBox>
-                                                    <asp:Button ID="Button3" runat="server" Text="Go" class="btn btn-dark"/>
+                                                    <asp:Button ID="Button3" runat="server" Text="Go" class="btn btn-dark" OnClick="Button3_Click"/>
                                                 </div>
                                      </div>
                                 </div>
@@ -148,18 +162,18 @@
                              <div class="row" style="margin-top:15px;">
                                 <div class="col-md-4">
                                    <div class="form-group">
-                                        <asp:Button ID="Button1" runat="server" Text="Add" CssClass="btn btn-info btn-lg btn-block"/>
+                                        <asp:Button ID="Button1" runat="server" Text="Add" CssClass="btn btn-info btn-lg btn-block" OnClick="Button1_Click"/>
                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                       <div class="form-group">
-                                        <asp:Button ID="Button2" runat="server" Text="Update" CssClass="btn btn-success btn-lg btn-block"/>
+                                        <asp:Button ID="Button2" runat="server" Text="Update" CssClass="btn btn-success btn-lg btn-block" OnClick="Button2_Click"/>
 
                                       </div>
                                 </div>
                                  <div class="col-md-4">
                                       <div class="form-group">
-                                        <asp:Button ID="Button4" runat="server" Text="Delete" CssClass="btn btn-danger btn-lg btn-block"/>
+                                        <asp:Button ID="Button4" runat="server" Text="Delete" CssClass="btn btn-danger btn-lg btn-block" OnClick="Button4_Click"/>
                                       </div>
                                 </div>
                             </div>
@@ -183,8 +197,26 @@
                             </div>
                         </div>
                         <div class="row">
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:eLibConnectionString %>" SelectCommand="SELECT * FROM [book_master]"></asp:SqlDataSource>
                             <div class="col">
-                                <asp:GridView ID="GridView1" runat="server" class="table table-striped table-bordered table-hover"></asp:GridView>
+                                <asp:GridView ID="GridView1" runat="server" class="table table-striped table-bordered table-hover" AutoGenerateColumns="False" DataKeyNames="book_d" DataSourceID="SqlDataSource1">
+                                    <Columns>
+                                        <asp:BoundField DataField="book_d" HeaderText="book_d" ReadOnly="True" SortExpression="book_d" />
+                                        <asp:BoundField DataField="book_name" HeaderText="book_name" SortExpression="book_name" />
+                                        <asp:BoundField DataField="genre" HeaderText="genre" SortExpression="genre" />
+                                        <asp:BoundField DataField="author_name" HeaderText="author_name" SortExpression="author_name" />
+                                        <asp:BoundField DataField="publisher_name" HeaderText="publisher_name" SortExpression="publisher_name" />
+                                        <asp:BoundField DataField="publish_date" HeaderText="publish_date" SortExpression="publish_date" />
+                                        <asp:BoundField DataField="language" HeaderText="language" SortExpression="language" />
+                                        <asp:BoundField DataField="edition" HeaderText="edition" SortExpression="edition" />
+                                        <asp:BoundField DataField="book_cost" HeaderText="book_cost" SortExpression="book_cost" />
+                                        <asp:BoundField DataField="no_pages" HeaderText="no_pages" SortExpression="no_pages" />
+                                        <asp:BoundField DataField="book_description" HeaderText="book_description" SortExpression="book_description" />
+                                        <asp:BoundField DataField="actual_stock" HeaderText="actual_stock" SortExpression="actual_stock" />
+                                        <asp:BoundField DataField="current_stock" HeaderText="current_stock" SortExpression="current_stock" />
+                                        <asp:BoundField DataField="book_img_link" HeaderText="book_img_link" SortExpression="book_img_link" />
+                                    </Columns>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>

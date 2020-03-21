@@ -73,6 +73,7 @@
     <Content Include="adminLogin.aspx" />
     <Content Include="adminMemberManagement.aspx" />
     <Content Include="adminPublisherManagement.aspx" />
+    <Content Include="book Inventory\book.png" />
     <Content Include="bootstrap\css\bootstrap-grid.css" />
     <Content Include="bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="bootstrap\css\bootstrap-reboot.css" />
