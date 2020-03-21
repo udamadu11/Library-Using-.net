@@ -124,7 +124,7 @@ namespace Library
                 string filepath = "~/book Inventory/book.png";
                 string filename = Path.GetFileName(FileUpload1.PostedFile.FileName);
                 FileUpload1.SaveAs(Server.MapPath("book inventory/" + filename));
-                filepath = "~/book Inventory/book.png" + filename;
+                filepath = "~/book Inventory/" + filename;
 
                 //select multiple genre
                 string genre = "";
