@@ -39,7 +39,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Book Id"></asp:TextBox>
-                                                <asp:Button ID="Button4" runat="server" Text="Go" class="btn btn-dark"/>
+                                                <asp:Button ID="Button4" runat="server" Text="Go" class="btn btn-dark" OnClick="Button4_Click"/>
                                             </div>
                                         </div>
                                 </div>
@@ -70,12 +70,12 @@
                              <div class="row" style="margin-top:15px;">
                                 <div class="col-md-6">
                                    <div class="form-group">
-                                        <asp:Button ID="Button1" runat="server" Text="Issue" CssClass="btn btn-primary btn-lg btn-block"/>
+                                        <asp:Button ID="Button1" runat="server" Text="Issue" CssClass="btn btn-primary btn-lg btn-block" OnClick="Button1_Click"/>
                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                       <div class="form-group">
-                                        <asp:Button ID="Button2" runat="server" Text="Return" CssClass="btn btn-success btn-lg btn-block"/>
+                                        <asp:Button ID="Button2" runat="server" Text="Return" CssClass="btn btn-success btn-lg btn-block" OnClick="Button2_Click"/>
 
                                       </div>
                                 </div>
@@ -100,8 +100,19 @@
                             </div>
                         </div>
                         <div class="row">
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:eLibConnectionString %>" SelectCommand="SELECT * FROM [book_issue]"></asp:SqlDataSource>
+
                             <div class="col">
-                                <asp:GridView ID="GridView1" runat="server" class="table table-striped table-bordered table-hover"></asp:GridView>
+                                <asp:GridView ID="GridView1" runat="server" class="table table-striped table-bordered table-hover" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
+                                    <Columns>
+                                        <asp:BoundField DataField="member_id" HeaderText="Member ID" SortExpression="member_id" />
+                                        <asp:BoundField DataField="member_name" HeaderText="Member Name" SortExpression="member_name" />
+                                        <asp:BoundField DataField="book_id" HeaderText="Book ID" SortExpression="book_id" />
+                                        <asp:BoundField DataField="book_name" HeaderText="Book Name" SortExpression="book_name" />
+                                        <asp:BoundField DataField="issue_date" HeaderText="Issue Date" SortExpression="issue_date" />
+                                        <asp:BoundField DataField="due_date" HeaderText="Due Date" SortExpression="due_date" />
+                                    </Columns>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>
