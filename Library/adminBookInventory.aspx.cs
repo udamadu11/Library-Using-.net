@@ -18,8 +18,13 @@ namespace Library
         static int glob_actual, glob_current, glob_issue;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                fillPublishAuthor();
+            }
+       
             GridView1.DataBind();
-            fillPublishAuthor();
+           
         }
 
         //go button
@@ -198,6 +203,7 @@ namespace Library
                     DropDownList1.SelectedValue = dt.Rows[0]["language"].ToString().Trim();
                     DropDownList2.SelectedValue = dt.Rows[0]["publisher_name"].ToString().Trim();
                     DropDownList3.SelectedValue = dt.Rows[0]["author_name"].ToString().Trim();
+                    
 
                     TextBox5.Text = "" + (Convert.ToInt32(TextBox3.Text) - Convert.ToInt32(TextBox4.Text));
                         
@@ -283,6 +289,26 @@ namespace Library
             {
                 try
                 {
+
+                    int actual_stock = Convert.ToInt32(TextBox3.Text.Trim());
+                    int current_stock = Convert.ToInt32(TextBox4.Text.Trim());
+                    if (glob_actual == actual_stock)
+                    {
+
+                    }
+                    else
+                    {
+                        if(actual_stock < glob_issue)
+                        {
+                            Response.Write("<script>alert('Actual Stock cant be less than Issued book')</script>");
+                        }
+                        else
+                        {
+                            current_stock = actual_stock - glob_issue;
+                            TextBox5.Text = "" + current_stock;
+                        }
+                    }
+
                     string genre = "";
                     foreach (int i in ListBox1.GetSelectedIndices())
                     {
@@ -296,7 +322,7 @@ namespace Library
 
                     if (filename == "" || filename == null)
                     {
-                        filename = glob_filepath;
+                        filepath = glob_filepath;
                     }
                     else
                     {
@@ -310,9 +336,9 @@ namespace Library
                     {
                         con.Open();
                     }
-                    SqlCommand cmd = new SqlCommand("UPDATE book_master SET book_d = @book_d,book_name = @book_name ,genre = @genre ,author_name = @author_name ,publisher_name = @publisher_name,publish_date = @publish_date ,language = @language,edition = @edition,book_cost = @book_cost,no_pages = @no_pages,book_description = @book_description ,actual_stock =  @actual_stock,current_stock = @current_stock,book_img_link = @book_img_link WHERE book_d = '" + TextBox2.Text.Trim() + "'", con);
+                    SqlCommand cmd = new SqlCommand("UPDATE book_master SET book_name = @book_name ,genre = @genre ,author_name = @author_name ,publisher_name = @publisher_name,publish_date = @publish_date ,language = @language,edition = @edition,book_cost = @book_cost,no_pages = @no_pages,book_description = @book_description ,actual_stock =  @actual_stock,current_stock = @current_stock,book_img_link = @book_img_link WHERE book_d = '" + TextBox2.Text.Trim() + "'", con);
 
-                    cmd.Parameters.AddWithValue("@book_d", TextBox2.Text.Trim());
+
                     cmd.Parameters.AddWithValue("@book_name", TextBox7.Text.Trim());
                     cmd.Parameters.AddWithValue("@genre", genre);
                     cmd.Parameters.AddWithValue("@author_name", DropDownList3.SelectedItem.Value);
@@ -323,14 +349,15 @@ namespace Library
                     cmd.Parameters.AddWithValue("@book_cost", TextBox10.Text.Trim());
                     cmd.Parameters.AddWithValue("@no_pages", TextBox11.Text.Trim());
                     cmd.Parameters.AddWithValue("@book_description", TextBox12.Text.Trim());
-                    cmd.Parameters.AddWithValue("@actual_stock", TextBox3.Text.Trim());
-                    cmd.Parameters.AddWithValue("@current_stock", TextBox3.Text.Trim());
-                    //  cmd.Parameters.AddWithValue("@book_img_link", filepath);
+                    cmd.Parameters.AddWithValue("@actual_stock", actual_stock.ToString());
+                    cmd.Parameters.AddWithValue("@current_stock", current_stock.ToString());
+                    cmd.Parameters.AddWithValue("@book_img_link", filepath);
 
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    Response.Write("<script>alert('Successfully Added')</script>");
                     GridView1.DataBind();
+                    Response.Write("<script>alert('Successfully Updated')</script>");
+                    
 
                 }catch(Exception ex)
                 {
