@@ -15,7 +15,7 @@ namespace Library
             {
                 if (Session["role"] == null)
                 {
-                    LinkButton7.Visible = false; // view book
+                    LinkButton7.Visible = true; // view book
                     LinkButton8.Visible = true; // user login
                     LinkButton9.Visible = true; // user sign up
                     LinkButton10.Visible = false; // hello user
@@ -48,7 +48,7 @@ namespace Library
                 }
                 else if (Session["role"].Equals("admin"))
                 {
-                    LinkButton7.Visible = false; // view book
+                    LinkButton7.Visible = true; // view book
                     LinkButton8.Visible = false; // user login
                     LinkButton9.Visible = false; // user sign up
                     LinkButton10.Visible = true; // hello user
@@ -112,7 +112,7 @@ namespace Library
 
         protected void LinkButton7_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("viewBooks.aspx");
         }
 
         protected void LinkButton11_Click(object sender, EventArgs e)
