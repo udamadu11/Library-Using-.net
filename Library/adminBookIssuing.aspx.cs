@@ -23,7 +23,15 @@ namespace Library
         {
             if (checkBook() && checkMember())
             {
-                issuBook();
+                if (CheckBookMember())
+                {
+                    Response.Write("<script>alert('This member already has this book')</script>");
+                }
+                else
+                {
+                    issuBook();
+                }
+                
             }
             else
             {
@@ -102,7 +110,7 @@ namespace Library
                 }
                 else
                 {
-                    return true;  
+                    return false;  
                 }
             }
             catch (Exception ex)
@@ -131,7 +139,7 @@ namespace Library
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -173,6 +181,35 @@ namespace Library
             {
                 Response.Write("<script>alert('" + ex.Message + "')</script>");
                 
+            }
+        }
+        //check same book same member again
+        bool CheckBookMember()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(str);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("SELECT * FROM book_issue WHERE member_id = '" + TextBox2.Text.Trim() + "' AND book_id = '"+TextBox1.Text.Trim()+"'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count >= 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+                return false;
             }
         }
 
