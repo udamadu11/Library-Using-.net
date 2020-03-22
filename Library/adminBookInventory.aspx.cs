@@ -292,23 +292,17 @@ namespace Library
 
                     int actual_stock = Convert.ToInt32(TextBox3.Text.Trim());
                     int current_stock = Convert.ToInt32(TextBox4.Text.Trim());
-                    if (glob_actual == actual_stock)
-                    {
-
-                    }
-                    else
-                    {
-                        if(actual_stock < glob_issue)
+                   
+                       if(actual_stock < glob_current)
                         {
-                            Response.Write("<script>alert('Actual Stock cant be less than Issued book')</script>");
+                            Response.Write("<script>alert('Actual Stock cant be less than Current book')</script>");
                         }
                         else
                         {
                             current_stock = actual_stock - glob_issue;
-                            TextBox5.Text = "" + current_stock;
+                            TextBox4.Text ="" + current_stock;
                         }
-                    }
-
+                    
                     string genre = "";
                     foreach (int i in ListBox1.GetSelectedIndices())
                     {

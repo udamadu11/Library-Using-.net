@@ -42,7 +42,23 @@ namespace Library
         //return 
         protected void Button2_Click(object sender, EventArgs e)
         {
+            if (checkBook() && checkMember())
+            {
+                if (CheckBookMember())
+                {
+                    returnBook();
+                }
+                else
+                {
+                    Response.Write("<script>alert('This Entry is does not Exist')</script>");
+                }
 
+            }
+            else
+            {
+
+                Response.Write("<script>alert('Invalid Book Id Or Member Id')</script>");
+            }
         }
 
 
@@ -213,5 +229,56 @@ namespace Library
             }
         }
 
+        void returnBook()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(str);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("DELETE FROM book_issue WHERE member_id = '" + TextBox2.Text.Trim() + "' AND book_id = '" + TextBox1.Text.Trim() + "'", con);
+
+                int result = cmd.ExecuteNonQuery();
+                if(result > 0)
+                {
+                    cmd = new SqlCommand("UPDATE book_master SET current_stock = current_stock+1 WHERE book_d = '" + TextBox1.Text.Trim() + "'", con);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    GridView1.DataBind();
+                    Response.Write("<script>alert('Return Successfully')</script>");
+                }
+                
+
+                
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+
+            }
+        }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    DateTime da = Convert.ToDateTime(e.Row.Cells[5].Text);
+                    DateTime today = DateTime.Today;
+                    if(today >= da)
+                    {
+                        e.Row.BackColor = System.Drawing.Color.PaleVioletRed;
+                    }
+                }
+
+            }catch(Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
     }
 }
